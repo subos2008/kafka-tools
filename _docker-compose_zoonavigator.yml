@@ -1,0 +1,22 @@
+version: '2.1'
+
+services:
+  web:
+    image: elkozmon/zoonavigator-web:0.6.2
+    container_name: zoonavigator-web
+    ports:
+     - "8000:8000"
+    environment:
+      WEB_HTTP_PORT: 8000
+      API_HOST: "api"
+      API_PORT: 8001
+      AUTO_CONNECT_CONNECTION_STRING: ${ZK_HOSTS}
+    depends_on:
+     - api
+    restart: always
+  api:
+    image: elkozmon/zoonavigator-api:0.6.2
+    container_name: zoonavigator-api
+    environment:
+      API_HTTP_PORT: 8001
+    restart: always
